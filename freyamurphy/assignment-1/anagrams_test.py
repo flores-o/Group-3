@@ -25,3 +25,6 @@ class testAnagrams(unittest.TestCase):
     # to check that a letter can't be check off of string2 twice
     def test_repeatedLetter(self):
         self.assertFalse(anagrams.isAnagram("listenl", "silentg"))
+
+    def test_caseSensitive(self):
+        self.assertFalse(anagrams.isAnagram("listen", "LISTEN"))
