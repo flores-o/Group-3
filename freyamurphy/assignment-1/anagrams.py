@@ -39,4 +39,4 @@ def isAnagram(string1, string2):
 
     return True
 
-main();
+#main()
