@@ -25,3 +25,5 @@ if __name__ == '__main__':
     print(s.check_anagrams('ana', 'naa'))
     print(s.check_anagrams('abc', 'bbc'))
 """
+
+#changed something
