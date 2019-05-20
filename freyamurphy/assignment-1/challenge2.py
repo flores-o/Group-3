@@ -1,16 +1,19 @@
 import re   # regular expressions
 
-# Return True is string1 is an anagram of string 2, and False otherwise
-def isAnagram(string1, string2):
-
-    # make upper case so case insensitive
-    string1 = string1.upper();
-    string2 = string2.upper();
+def prepareString(string):
+    string = string.upper()
 
     # Substitute all non-alpha numeric characters with ""
     # This removes whitespace and punctuation
-    string1 = re.sub('[^A-Z0-9]+', '', string1)
-    string2 = re.sub('[^A-Z0-9]+', '', string2)
+    string = re.sub('[^A-Z0-9]+', '', string)
+
+    return string
+
+# Return True is string1 is an anagram of string 2, and False otherwise
+def isAnagram(string1, string2):
+
+    string1 = prepareString(string1)
+    string2 = prepareString(string2)
 
     # Anagrams must be the same length
     if len(string1) != len(string2):
