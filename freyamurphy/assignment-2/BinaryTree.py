@@ -8,10 +8,15 @@ class BinaryTree:
     def insert(self, childNode, parentNode, insertLeft):
         # TODO: Check if childNode.key is already in tree
 
-        if insertLeft && parentNode.left = None:
+        if insertLeft and parentNode.left == None:
             parentNode.left = childNode
-        elif insertRight && parentNode.right = None:
+        elif not(insertLeft) and parentNode.right == None:
             parentNode.right = childNode
         else:
-            # TODO: throw an exception
-            print("Error: Cannot insert where a child already exists.")
+            raise Exception("Cannot insert where a child already exists.")
+
+    # https://www.tutorialspoint.com/python/python_tree_traversal_algorithms.htm
+    # Using pre-order traversal
+    def getNodeWithKey(self, key):
+        # traverse tree until you find the key
+        pass
