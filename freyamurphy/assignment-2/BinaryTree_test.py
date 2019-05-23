@@ -70,3 +70,41 @@ class testBinaryTree(unittest.TestCase):
 
         # Non-existing key
         self.assertEqual(exampleTree.getNodeWithKey(9, exampleTree.root), None)
+
+    ###
+    # getParent tests
+    ###
+    def test_getParent(self):
+
+        exampleTree = self.createExampleTree()
+        self.assertEqual(exampleTree.getParent(exampleTree.root.key, exampleTree.root, None), None)
+        self.assertEqual(exampleTree.getParent(exampleTree.root.left.key, exampleTree.root, None), exampleTree.root.key)
+        self.assertEqual(exampleTree.getParent(exampleTree.root.right.key, exampleTree.root, None), exampleTree.root.key)
+        self.assertEqual(exampleTree.getParent(exampleTree.root.left.left.key, exampleTree.root, None), exampleTree.root.left.key)
+        self.assertEqual(exampleTree.getParent(exampleTree.root.left.right.key, exampleTree.root, None), exampleTree.root.left.key)
+        self.assertEqual(exampleTree.getParent(exampleTree.root.right.right.key, exampleTree.root, None), exampleTree.root.right.key)
+        self.assertEqual(exampleTree.getParent(exampleTree.root.left.left.left.key, exampleTree.root, None), exampleTree.root.left.left.key)
+        self.assertEqual(exampleTree.getParent(exampleTree.root.left.left.right.key, exampleTree.root, None), exampleTree.root.left.left.key)
+
+        self.assertEqual(exampleTree.getParent(9, exampleTree.root, None), None)
+
+    ###
+    # getAncestors tests
+    ###
+    def test_getAncestors(self):
+        exampleTree = self.createExampleTree()
+
+        self.assertEqual(exampleTree.getAncestors(exampleTree.root.key), [])
+
+        self.assertEqual(exampleTree.getAncestors(exampleTree.root.left.key), [7])
+        self.assertEqual(exampleTree.getAncestors(exampleTree.root.right.key), [7])
+        self.assertEqual(exampleTree.getAncestors(exampleTree.root.left.left.key), [3, 7])
+        self.assertEqual(exampleTree.getAncestors(exampleTree.root.left.right.key), [3, 7])
+        self.assertEqual(exampleTree.getAncestors(exampleTree.root.right.right.key), [4, 7])
+        self.assertEqual(exampleTree.getAncestors(exampleTree.root.left.left.left.key), [2, 3, 7])
+        self.assertEqual(exampleTree.getAncestors(exampleTree.root.left.left.right.key), [2, 3, 7])
+
+        self.assertEqual(exampleTree.getAncestors(9), [])
+
+        # Example from brief
+        self.assertEqual(exampleTree.getAncestors(6), [2, 3, 7])

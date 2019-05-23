@@ -30,3 +30,32 @@ class BinaryTree:
                     return leftSubtree
                 else:
                     return self.getNodeWithKey(key, startingNode.right)
+
+    def getParent(self, key, startingNode, parent):
+
+        if startingNode is not None:
+            if startingNode.key == key:
+                if parent is not None:
+                    return parent.key
+                else:
+                    return None
+            else:
+                leftSubtree = self.getParent(key, startingNode.left, startingNode)
+                if leftSubtree is not None:
+                    return leftSubtree
+                else:
+                    parent = startingNode
+                    return self.getParent(key, startingNode.right, startingNode)
+
+
+    def getAncestors(self, key):
+
+        parent = self.getParent(key, self.root, None)
+
+        if parent is None:
+            return []
+        else:
+            parentAncestors = self.getAncestors(parent)
+            myAncestors = [parent] + parentAncestors
+
+            return myAncestors
