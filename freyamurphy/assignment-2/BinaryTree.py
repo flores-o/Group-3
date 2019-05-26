@@ -6,6 +6,9 @@ class BinaryTree:
     The tree is NOT a binary search tree (where the keys are ordered), but an
     arbitrary binary tree.
 
+    Since the nodes in this tree do not store their parent, the tree uses less
+    memory but the time to find parents and ancestors is longer.
+
     Attributes:
         root: The root Node of the tree, which has no parent.
     """
@@ -73,8 +76,8 @@ class BinaryTree:
             parent: The the key of the parent Node of startingNode.
 
         Returns:
-            A reference to a Node which is the parent of the Node with attribute
-            key equal to parameter key.
+            The key of the Node which is the parent of the Node being searched
+            for.
             None if there is no Node with the searched for key or if this Node
             has no parent.
         """

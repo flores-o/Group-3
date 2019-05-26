@@ -3,3 +3,4 @@
 freyamurphy/assignment-2/__pycache__/BinaryTree.cpython-36.pyc
 freyamurphy/assignment-2/__pycache__/BinaryTree_test.cpython-36.pyc
 freyamurphy/assignment-2/__pycache__/Node.cpython-36.pyc
+*.pyc
