@@ -3,7 +3,8 @@ import Node
 class BinaryTree:
     """A binary tree made up of Nodes.
 
-    Each Node has up to two children.
+    The tree is NOT a binary search tree (where the keys are ordered), but an
+    arbitrary binary tree.
 
     Attributes:
         root: The root Node of the tree, which has no parent.
@@ -69,7 +70,7 @@ class BinaryTree:
                 for. Can be any type.
             startingNode: This node and its left and right subtree will be
                 searched; the rest of the binary tree is ignored.
-            parent: The parent Node of startingNode.
+            parent: The the key of the parent Node of startingNode.
 
         Returns:
             A reference to a Node which is the parent of the Node with attribute
@@ -94,23 +95,48 @@ class BinaryTree:
 
 
     def getAncestors(self, key):
-        """ Gets a list containing all ancestors of the Node with a specified
+        """Gets a list containing all ancestors of the Node with a specified
             key.
+
+            A node is an ancestor of itself.
 
         Args:
             key: The key of the Node to get the ancestors of. Can be any type.
 
         Returns:
-            A list of keys of the ancestors of the Node with attribute key equal
-            to parameter key.
+            A list of keys of the ancestors of the Node being searched for.
         """
 
         parent = self.getParent(key, self.root, None)
 
         if parent is None:
-            return []
+            return [key]
         else:
             parentAncestors = self.getAncestors(parent)
-            myAncestors = [parent] + parentAncestors
+            myAncestors = [key] + parentAncestors
 
             return myAncestors
+
+    def getLowestCommonAncestor(self, node1, node2):
+        """Finds the lowest common ancestor of two Nodes.
+
+        If node1 is an ancestor of node2, then node1 is the lowest
+        common ancestor, and vice versa.
+
+        Args:
+            node1: A reference to a Node in the binary tree.
+            node2: A reference to a Node in the binary tree.
+
+        Returns:
+            The key of the Node which is the lowest common ancestor of node1
+            and node2. This can be any type.
+        """
+
+        node1Ancestors = self.getAncestors(node1.key)
+        node2Ancestors = self.getAncestors(node2.key)
+
+        # TODO: Could I make this more efficient?
+        for ancestor1 in node1Ancestors:
+            for ancestor2 in node2Ancestors:
+                if ancestor1 == ancestor2:
+                    return ancestor1
