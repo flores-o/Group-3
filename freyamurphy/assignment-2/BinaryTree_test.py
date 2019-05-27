@@ -1,20 +1,22 @@
 import unittest
 
-from BinaryTree import BinaryTree
+from TimeEfficientBinaryTree import TimeEfficientBinaryTree
+from MemoryEfficientBinaryTree import MemoryEfficientBinaryTree
 from Node import Node
+from NodeWithParent import NodeWithParent
 
-class testBinaryTree(unittest.TestCase):
+class TestBinaryTree(object):
 
     def createExampleTree(self):
-        binaryTree = BinaryTree(Node(7))
+        binaryTree = self.getBinaryTree(self.getNode(7))
 
-        binaryTree.insert(Node(3), binaryTree.root, True)
-        binaryTree.insert(Node(4), binaryTree.root, False)
-        binaryTree.insert(Node(2), binaryTree.root.left, True)
-        binaryTree.insert(Node(5), binaryTree.root.left, False)
-        binaryTree.insert(Node(8), binaryTree.root.right, False)
-        binaryTree.insert(Node(1), binaryTree.root.left.left, True)
-        binaryTree.insert(Node(6), binaryTree.root.left.left, False)
+        binaryTree.insert(self.getNode(3), binaryTree.root, True)
+        binaryTree.insert(self.getNode(4), binaryTree.root, False)
+        binaryTree.insert(self.getNode(2), binaryTree.root.left, True)
+        binaryTree.insert(self.getNode(5), binaryTree.root.left, False)
+        binaryTree.insert(self.getNode(8), binaryTree.root.right, False)
+        binaryTree.insert(self.getNode(1), binaryTree.root.left.left, True)
+        binaryTree.insert(self.getNode(6), binaryTree.root.left.left, False)
 
         return binaryTree
 
@@ -22,32 +24,32 @@ class testBinaryTree(unittest.TestCase):
     # insert tests
     ###
     def test_insertLeft(self):
-        node1 = Node(1)
-        binaryTree = BinaryTree(node1)
+        node1 = self.getNode(1)
+        binaryTree = self.getBinaryTree(node1)
 
         # Node is inserted successfully
-        node2 = Node(2)
+        node2 = self.getNode(2)
         binaryTree.insert(node2, binaryTree.root, True)
         self.assertEqual(binaryTree.root.left, node2)
         self.assertEqual(binaryTree.root.right, None)
 
         # Node cannot be inserted where one already exists
-        node3 = Node(3)
+        node3 = self.getNode(3)
         with self.assertRaises(Exception):
             binaryTree.insert(node3, binaryTree.root, True)
 
     def test_insertRight(self):
-        node1 = Node(1)
-        binaryTree = BinaryTree(node1)
+        node1 = self.getNode(1)
+        binaryTree = self.getBinaryTree(node1)
 
         # Node is inserted successfully
-        node2 = Node(2)
+        node2 = self.getNode(2)
         binaryTree.insert(node2, binaryTree.root, False)
         self.assertEqual(binaryTree.root.right, node2)
         self.assertEqual(binaryTree.root.left, None)
 
         # Node cannot be inserted where one already exists
-        node3 = Node(3)
+        node3 = self.getNode(3)
         with self.assertRaises(Exception):
             binaryTree.insert(node3, binaryTree.root, False)
 
@@ -116,3 +118,11 @@ class testBinaryTree(unittest.TestCase):
         self.assertEqual(exampleTree.getLowestCommonAncestor(exampleTree.root.left, exampleTree.root.left.left), exampleTree.root.left.key)
         # Both nodes are the same
         self.assertEqual(exampleTree.getLowestCommonAncestor(exampleTree.root.right.right, exampleTree.root.right.right), exampleTree.root.right.right.key)
+
+class TestTimeEfficientBinaryTree(TestBinaryTree, unittest.TestCase):
+    getNode = staticmethod(NodeWithParent)
+    getBinaryTree = staticmethod(TimeEfficientBinaryTree)
+
+class TestMemoryEfficientBinaryTree(TestBinaryTree, unittest.TestCase):
+    getNode = staticmethod(Node)
+    getBinaryTree = staticmethod(MemoryEfficientBinaryTree)

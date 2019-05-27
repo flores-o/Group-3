@@ -1,6 +1,6 @@
 import Node
 
-class BinaryTree:
+class MemoryEfficientBinaryTree:
     """A binary tree made up of Nodes.
 
     The tree is NOT a binary search tree (where the keys are ordered), but an
@@ -14,7 +14,7 @@ class BinaryTree:
     """
 
     def __init__(self, rootNode):
-        """Inits BinaryTree with a root Node."""
+        """Inits MemoryEfficientBinaryTree with a root Node."""
         self.root = rootNode
 
     def insert(self, childNode, parentNode, insertLeft):

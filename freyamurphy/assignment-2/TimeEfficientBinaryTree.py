@@ -1,14 +1,14 @@
-from BinaryTree import BinaryTree
+from MemoryEfficientBinaryTree import MemoryEfficientBinaryTree
 import NodeWithParent
 
-class BinaryTreeStoringParents(BinaryTree):
+class TimeEfficientBinaryTree(MemoryEfficientBinaryTree):
     """A binary tree made up of NodeWithParents.
 
         See BinaryTree.
 
         Since this tree uses nodes which store their parent, it uses more
-        memory than BinaryTree but is more efficient at find the parents and
-        ancestors of nodes.
+        memory than MemoryEfficientBinaryTree but is more efficient at find the
+        parents and ancestors of nodes.
 
         Attributes:
             root: The root NodeWithParent of the tree, which has no parent.
@@ -16,8 +16,8 @@ class BinaryTreeStoringParents(BinaryTree):
 
     # Do I have to do this or is it included automatically?
     def __init__(self, rootNode):
-        """Inits BinaryTree with a root Node."""
-        BinaryTree.__init__(self,rootNode)
+        """Inits TimeEfficientBinaryTree with a root Node."""
+        MemoryEfficientBinaryTree.__init__(self,rootNode)
 
     def insert(self, childNode, parentNode, insertLeft):
         """Adds a NodeWithParent to the binary tree.
