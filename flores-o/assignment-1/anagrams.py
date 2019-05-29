@@ -3,27 +3,24 @@ from collections import defaultdict
 class Solution:
     def __init__(self):
         pass
-    def check_anagrams(self, s1, s2):
+    def check_anagrams(self, string1, string2):
         """returns True if the 2 given strings are anagrams
 
         Args: 
-            s1: string
-            s2: string
+            string1: string
+            string2: string
         Returns:
            Bool
         """
-        if len(s1) != len(s2):
+        if len(string1) != len(string2):
             return False
         # char_frequency is a dictionary that maps a character to its 
         # number of occurences
-        # for every character in s1, we increase its frequency with 1
-        # for every character in s2, we decrease its frequency with 1
-        # we return true if the char_frequency only contains pair of 
-        # form (character, 0)
+
         char_frequency = defaultdict(int)
-        for c in s1:
+        for c in string1:
             char_frequency[c] += 1
-        for c in s2:
+        for c in string2:
             char_frequency[c] -= 1
             if char_frequency[c] < 0:
                 return False

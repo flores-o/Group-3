@@ -3,15 +3,22 @@ import string
 class Solution:
     def __init__(self):
         pass
-    def check_anagrams(self, s1, s2):
+    def check_anagrams(self, string1, string2):
+        """returns True if the 2 given strings are anagrams
 
-        if len(s1) != len(s2):
+        Args: 
+            string1: string
+            string2: string
+        Returns:
+           Bool
+        """
+        if len(string1) != len(string2):
             return False
 
         char_frequency = defaultdict(int)
-        for c in s1:
+        for c in string1:
             char_frequency[c] += 1
-        for c in s2:
+        for c in string2:
             char_frequency[c] -= 1
             if char_frequency[c] < 0:
                 return False
@@ -20,27 +27,55 @@ class Solution:
                 return False
         return True
 
-    def check_anagrams_case_insensitive(self, s1, s2):
-        return self.check_anagrams(s1.lower(), s2.lower())
+    def check_anagrams_case_insensitive(self, string1, string2):
+        """returns True if the 2 given strings are case sensitive or 
+        case insensitive anagrams 
+
+        Args: 
+            string1: string
+            string2: string
+        Returns:
+           Bool
+        """
+        return self.check_anagrams(string1.lower(), string2.lower())
     
-    def check_anagrams_sentences(self, s1, s2):
+    def check_anagrams_sentences(self, string1, string2):
+        """returns True if the 2 given strings are anagrams 
+        of sentences, where the order of the letters is not tied 
+        to words and punctuation and white characters are ignored
+
+        Args: 
+            string1: string
+            string2: string
+        Returns:
+           Bool
+        """
         exclude = set(string.punctuation + ' ')
-        s1_new = ''.join(c for c in s1 if c not in exclude)
-        s2_new = ''. join(c for c in s2 if c not in exclude)
+        string1_new = ''.join(c for c in string1 if c not in exclude)
+        string2_new = ''. join(c for c in string2 if c not in exclude)
 
-        return self.check_anagrams(s1_new, s2_new)
+        return self.check_anagrams(string1_new, string2_new)
 
 
-    def check_anagrams_words_sentences(self, s1, s2):
+    def check_anagrams_corresponding_words_sentences(self, string1, string2):
+        """returns True if the 2 given strings are anagrams of sentences, 
+        where each word in the first sentence is an anagram of the corresponding
+        word in the second sentence
 
-        s1_list = s1.split()
-        s2_list = s1.split()
+        Args: 
+            string1: string
+            string2: string
+        Returns:
+           Bool
+        """
+        string1_list = string1.split()
+        string2_list = string2.split()
 
-        if len(s1_list) != len(s2_list):
+        if len(string1_list) != len(string2_list):
             return False
 
-        for idx in range(len(s1_list)):
-            if self.check_anagrams(s1_list[idx], s2_list[idx]) == False:
+        for idx, elem_string1_list in enumerate(string1_list):
+            if not self.check_anagrams(elem_string1_list, string2_list[idx]):
                 return False
         return True
 
