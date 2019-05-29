@@ -1,5 +1,3 @@
-# import binary_tree_tests as btests
-
 
 class BinaryTreeNode(object):
     """
@@ -155,7 +153,14 @@ def find_lc_ancestor(btree, key1, key2):
 def main():
     """
     Construct a binary tree for testing
-
+    For reference: 
+             20
+            /  \
+           8    22
+          / \   
+         4  12 
+            / \
+           10 14
     """
     root = BinaryTreeNode(20)
 
