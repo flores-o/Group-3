@@ -1,3 +1,6 @@
+# import binary_tree_tests as btests
+
+
 class BinaryTreeNode(object):
     """
     Represent a node in Binary Tree.
@@ -22,17 +25,17 @@ class BinaryTreeNode(object):
 
 def find_node(btree, key):
     """
-    Given a binary tree and a key, returns a reference to the node with 
+    Given a binary tree and a key, returns a reference to the node with
     that key in the tree.
 
-    Args: 
+    Args:
         btree: a binary tree instance
         key: the specific key to look for within btree.
 
-    Returns:  
+    Returns:
         a reference to the node with key in btree. Each reference is an instance
-        of a BinaryTreeNode object. 
-        For example: for the given btree 
+        of a BinaryTreeNode object.
+        For example: for the given btree
                                     10
                                    /   \
                                   5     40
@@ -57,14 +60,14 @@ def in_tree(btree, key):
     Helper Function: for a binary tree and a key, returns True if the node with 
     that key is presented in the tree, return False otherwise.
 
-    Args: 
+    Args:
         btree: a binary tree instance
         key: the specific key to look for within btree.
 
-    Returns:  
+    Returns:
         a reference to the node with key in btree. Each reference is an instance
-        of a BinaryTreeNode object. 
-        For example: for the given btree 
+        of a BinaryTreeNode object.
+        For example: for the given btree
                                     10
                                    /   \
                                   5     40
@@ -82,17 +85,17 @@ def in_tree(btree, key):
 
 def find_ancestor(btree, key):
     """
-    Given a binary tree and a key, returns all the ancestors of the node with 
+    Given a binary tree and a key, returns all the ancestors of the node with
     that key in the given binary tree.
 
-    Args: 
+    Args:
         btree: a binary tree instance
         key: the specific key to look for within btree.
 
-    Returns:  
-        a list of all the ancestors of the node with that key in the 
+    Returns:
+        a list of all the ancestors of the node with that key in the
         given binary tree. In other words, return a list of chosen keys.
-        For example: for the given btree 
+        For example: for the given btree
                                     10
                                    /   \
                                   5     40
@@ -103,6 +106,8 @@ def find_ancestor(btree, key):
     """
     if not in_tree(btree, key):
         return []
+    if btree.val == key:
+        return []
 
     left_ans = find_ancestor(btree.left, key)
     right_ans = find_ancestor(btree.right, key)
@@ -112,14 +117,14 @@ def find_ancestor(btree, key):
 def find_lc_ancestor(btree, key1, key2):
     """
     Given a binary tree and 2 keys, find their lowest common ancestor.
-    Args: 
+    Args:
         btree: a binary tree instance
         key1: one of the keys to look for within btree.
         key2: another keys to look for within btree.
 
-    Returns:  
+    Returns:
         a reference to the lowest ancestor shared by the two nodes with specified
-        key1 and key2. 
+        key1 and key2.
                                     10
                                    /   \
                                   5     40
@@ -130,12 +135,12 @@ def find_lc_ancestor(btree, key1, key2):
         find_ancestor(btree, 1, 10) would return the reference to node 10
         find_ancestor(btree, 5, 50) would return the reference to node 10
 
-        return None if either of the keys is not in btree. 
+        return None if either of the keys is not in btree.
     """
     if btree is None:
         return None
 
-    if btree.key == key1 or btree.key == key2:
+    if btree.val == key1 or btree.val == key2:
         return btree
 
     left_lca = find_lc_ancestor(btree.left, key1, key2)
@@ -145,3 +150,64 @@ def find_lc_ancestor(btree, key1, key2):
         return btree
 
     return left_lca if left_lca is not None else right_lca
+
+
+def main():
+    """
+    Construct a binary tree for testing
+
+    """
+    root = BinaryTreeNode(20)
+
+    root.left = BinaryTreeNode(8)
+    root.right = BinaryTreeNode(22)
+    root.left.left = BinaryTreeNode(4)
+    root.left.right = BinaryTreeNode(12)
+    root.left.right.left = BinaryTreeNode(10)
+    root.left.right.right = BinaryTreeNode(14)
+
+    # find_node tests
+    key1 = 8
+    node1 = find_node(root, key1)
+    assert node1.val == 8
+
+    key2 = 50
+    node2 = find_node(root, key2)
+    assert node2 is None
+
+    key3 = 14
+    node3 = find_node(root, key3)
+    assert node3.val == 14
+
+    # find_ancestor tests
+    ance1 = find_ancestor(root, 8)
+    assert ance1 == [20]
+
+    ance2 = find_ancestor(root, 14)
+    assert ance2 == [12, 8, 20]
+
+    ance3 = find_ancestor(root, 50)
+    assert ance3 == []
+
+    ance4 = find_ancestor(root, 20)
+    assert ance4 == []
+
+    # find_lc_ancestor tests
+    key1 = 10
+    key2 = 14
+    t = find_lc_ancestor(root, key1, key2)
+    assert t.val == 12
+
+    key1 = 14
+    key2 = 8
+    t = find_lc_ancestor(root, key1, key2)
+    assert t.val == 8
+
+    key1 = 10
+    key2 = 22
+    t = find_lc_ancestor(root, key1, key2)
+    assert t.val == 20
+
+
+if __name__ == "__main__":
+    main()
